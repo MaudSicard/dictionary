@@ -10,7 +10,7 @@ Welcome !
 - [Docker](Categories/docker.md)
 - [Java](Categories/java.md)
 - [Quarkus](Categories/quarkus.md)
-- [Kubernetes](Catégories/kubernetes.md)
+- [Kubernetes](Categories/kubernetes.md)
 - [POO](Categories/POO.md)
 - [Spring](Categories/spring.md)
 - [Outils](Categories/outils.md)
