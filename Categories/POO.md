@@ -1,13 +1,11 @@
 # 🟦 Catégorie : POO - Programmation Orientée Objet
 
-<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Recherche dans la page</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
-    /* Optionnel : style pour mettre en évidence les résultats */
     mark {
       background: yellow;
       padding: 0;
