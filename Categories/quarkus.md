@@ -1,17 +1,21 @@
 # 🟦 Catégorie : Quarkus
 
-
 ## ✅ JWT et Quarkus
-> Voici quelques détails supplémentaires pour bien gérer les **JWT** avec **Quarkus** :
+
+Voici quelques détails supplémentaires pour bien gérer les **JWT** avec **Quarkus** :
 
 ### 🔹 **1. Générer et Vérifier un JWT**
+
 Un **JSON Web Token (JWT)** est un jeton signé contenant des informations d’authentification. Il est composé de trois parties :
+
 1. **Header** : Indique l’algorithme de signature (`RS256`, `HS256`, etc.).
 2. **Payload** : Contient les **claims** (rôles, identifiant utilisateur…).
 3. **Signature** : Garantit l'intégrité du jeton.
 
 #### 📌 **Création d'un JWT en Java**
+
 Tu peux utiliser **`io.smallrye.jwt.build.Jwt`** pour générer un token :
+
 ```java
 import io.smallrye.jwt.build.Jwt;
 import java.time.Instant;
@@ -29,14 +33,17 @@ public class JwtGenerator {
     }
 }
 ```
+
 Ce jeton expirera après **1 heure** et inclut les rôles `admin` et `user`.
 
 ---
 
 ### 🔹 **2. Vérification automatique avec Quarkus**
+
 Avec Quarkus, il suffit de configurer **SmallRye JWT** pour que les tokens soient vérifiés automatiquement !
 
 #### 📌 **Ajout de la configuration dans `application.properties`**
+
 ```properties
 mp.jwt.verify.publickey.location=/chemin/vers/publicKey.pem
 mp.jwt.verify.issuer=https://ton-issuer.com
@@ -44,7 +51,9 @@ quarkus.smallrye-jwt.enabled=true
 ```
 
 #### 📌 **Protection des endpoints avec `@RolesAllowed`**
+
 Une fois activé, tu peux sécuriser ton API en fonction des rôles du JWT :
+
 ```java
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
@@ -64,7 +73,9 @@ public class AdminResource {
 ---
 
 ### 🔹 **3. Validation manuelle du JWT**
+
 Si tu veux **valider manuellement** un JWT, tu peux utiliser **SmallRye JWT Parser** :
+
 ```java
 import io.smallrye.jwt.auth.principal.JWTParser;
 import io.smallrye.jwt.auth.principal.JsonWebToken;
@@ -91,78 +102,187 @@ public class JwtService {
 ---
 
 ### 🛠 **Résumé et prochaines étapes**
+
 ✅ **Générer un JWT** avec `Jwt.issuer(...)`
 ✅ **Le valider automatiquement** grâce à Quarkus et `@RolesAllowed`
 ✅ **Faire une vérification manuelle** avec `JWTParser`
 
-## ✅ @All
-> Injecte toutes les instances d’un type donné dans une liste.
-## ✅ @ApplicationScoped
-> Portée du bean : une instance unique pour toute l’application.
-## ✅ @Dependent
-> Portée par défaut, une nouvelle instance à chaque injection.
-## ✅ @Disposes
-> Méthode appelée pour nettoyer un bean produit.
-## ✅ @Inject
-> Injection de dépendance automatique.
-## ✅ @Named
-> Attribue un nom à un bean pour l’injection par nom.
-## ✅ @Produces
-> Définit un producteur de beans pour l’injection.
-## ✅ @Qualifier
-> Crée un qualificateur personnalisé pour différencier les beans.
-## ✅ @Singleton
-> Portée singleton, équivalente à @ApplicationScoped.
-## ✅ @Path
-> Définit le chemin d’un endpoint REST.
-## ✅ @GET, @POST, @PUT, @DELETE, @PATCH
-> Mappent les méthodes HTTP correspondantes.
-## ✅ @Produces
-> Spécifie le type MIME de la réponse (ex. application/json).
-## ✅ @Consumes
-> Spécifie le type MIME attendu dans la requête.
-## ✅ @PathParam
-> Injection d’un paramètre de chemin.
-## ✅ @QueryParam
-> Injection d’un paramètre de requête.
-## ✅ @HeaderParam
-> Injection d’un en-tête HTTP.
-## ✅ @FormParam
-> Injection d’un paramètre de formulaire.
-## ✅ @QuarkusMain
-> Définit la classe principale pour une application CLI.
-## ✅ @ConfigProperty
-> Injection de propriétés de configuration.
-## ✅ @RegisterForReflection
-> Enregistre une classe pour la réflexion, utile en mode natif.
-## ✅ @Transactional
-> Gère les transactions automatiquement.
-## ✅ @RolesAllowed
-> Spécifie les rôles autorisés pour accéder à une méthode ou une classe.
-## ✅ @PermitAll
-> Permet l’accès à tous, sans restriction.
-## ✅ @DenyAll
-> Interdit l’accès à tous.
-## ✅ @ConfigProperty
-> Injection de propriétés de configuration.
-## ✅ @Gauge, @Counted, @Timed
-> Métriques pour le monitoring.
-## ✅ @Health, @Liveness, @Readiness
-> Indiquent l’état de santé de l’application.
-## ✅ @QuarkusTest
-> Indique une classe de test utilisant Quarkus.
-## ✅ @TestHTTPEndpoint
-> Spécifie l’endpoint REST à tester.
-## ✅ @TestHTTPResource
-> Injection d’une ressource HTTP pour les tests.
-## ✅ @RestClient
-> Injection d’un client REST typé.
-## ✅ @Blocking
-> Indique qu’une méthode est bloquante.
-## ✅ @NonBlocking
-> Indique qu’une méthode est non bloquante.
-## ✅ @Scheduled
-> Planifie l’exécution périodique d’une méthode.
+## ✅ Mutiny
 
+Mutiny est une **bibliothèque de programmation réactive** conçue pour simplifier la gestion des opérations asynchrones en Java. Elle est utilisée principalement dans **Quarkus** pour gérer les flux de données et les événements de manière fluide.
+
+### **Principes de Mutiny**
+
+Mutiny repose sur un modèle **événementiel et réactif**, où les opérations sont déclenchées par des événements plutôt que par des appels bloquants. Elle propose deux types principaux :
+
+- **`Uni<T>`** : Émet **un seul élément** ou une erreur. Idéal pour les opérations asynchrones comme les requêtes HTTP ou les accès à une base de données.
+- **`Multi<T>`** : Émet **plusieurs éléments** sur une période donnée. Utile pour les flux de données continus, comme la lecture d’un fichier ou la réception de messages.
+
+### **Exemple d'utilisation**
+
+```java
+import io.smallrye.mutiny.Uni;
+
+public class MutinyExample {
+    public Uni<String> fetchData() {
+        return Uni.createFrom().item(""Données récupérées"")
+                   .onItem().delayIt().by(Duration.ofSeconds(2));
+    }
+}
+```
+
+Ici, la méthode retourne un `Uni<String>` qui émet une valeur après **2 secondes**.
+
+### **Pourquoi Mutiny ?**
+
+Mutiny se distingue des autres bibliothèques réactives par :
+
+- **Une API intuitive** : Facile à lire et à comprendre, sans nécessiter une expertise avancée en programmation fonctionnelle.
+- **Une navigation simplifiée** : Contrairement à d'autres bibliothèques avec des centaines de méthodes, Mutiny propose une approche plus guidée.
+- **Une intégration native avec Quarkus** : Elle est optimisée pour les applications réactives développées avec Quarkus.
+
+### **Cas d'utilisation**
+
+Mutiny est utilisée pour :
+
+- **Les microservices réactifs** (REST, Kafka, WebSockets).
+- **Les traitements de données en streaming**.
+- **Les interactions avec des bases de données réactives**.
+
+## ✅ @All
+
+Injecte toutes les instances d’un type donné dans une liste.
+
+## ✅ @ApplicationScoped
+
+Portée du bean : une instance unique pour toute l’application.
+
+## ✅ @Dependent
+
+Portée par défaut, une nouvelle instance à chaque injection.
+
+## ✅ @Disposes
+
+Méthode appelée pour nettoyer un bean produit.
+
+## ✅ @Inject
+
+Injection de dépendance automatique.
+
+## ✅ @Named
+
+Attribue un nom à un bean pour l’injection par nom.
+
+## ✅ @Produces
+
+Définit un producteur de beans pour l’injection.
+
+## ✅ @Qualifier
+
+Crée un qualificateur personnalisé pour différencier les beans.
+
+## ✅ @Singleton
+
+Portée singleton, équivalente à @ApplicationScoped.
+
+## ✅ @Path
+
+Définit le chemin d’un endpoint REST.
+
+## ✅ @GET, @POST, @PUT, @DELETE, @PATCH
+
+Mappent les méthodes HTTP correspondantes.
+
+## ✅ @Produces
+
+Spécifie le type MIME de la réponse (ex. application/json).
+
+## ✅ @Consumes
+
+Spécifie le type MIME attendu dans la requête.
+
+## ✅ @PathParam
+
+Injection d’un paramètre de chemin.
+
+## ✅ @QueryParam
+
+Injection d’un paramètre de requête.
+
+## ✅ @HeaderParam
+
+Injection d’un en-tête HTTP.
+
+## ✅ @FormParam
+
+Injection d’un paramètre de formulaire.
+
+## ✅ @QuarkusMain
+
+Définit la classe principale pour une application CLI.
+
+## ✅ @ConfigProperty (Injection)
+
+Injection de propriétés de configuration.
+
+## ✅ @RegisterForReflection
+
+Enregistre une classe pour la réflexion, utile en mode natif.
+
+## ✅ @Transactional
+
+Gère les transactions automatiquement.
+
+## ✅ @RolesAllowed
+
+Spécifie les rôles autorisés pour accéder à une méthode ou une classe.
+
+## ✅ @PermitAll
+
+Permet l’accès à tous, sans restriction.
+
+## ✅ @DenyAll
+
+Interdit l’accès à tous.
+
+## ✅ @ConfigProperty
+
+Injection de propriétés de configuration.
+
+## ✅ @Gauge, @Counted, @Timed
+
+ Métriques pour le monitoring.
+
+## ✅ @Health, @Liveness, @Readiness
+
+ Indiquent l’état de santé de l’application.
+
+## ✅ @QuarkusTest
+>
+> Indique une classe de test utilisant Quarkus.
+>
+## ✅ @TestHTTPEndpoint
+>
+> Spécifie l’endpoint REST à tester.
+>
+## ✅ @TestHTTPResource
+>
+> Injection d’une ressource HTTP pour les tests.
+>
+## ✅ @RestClient
+>
+> Injection d’un client REST typé.
+>
+## ✅ @Blocking
+>
+> Indique qu’une méthode est bloquante.
+>
+## ✅ @NonBlocking
+>
+> Indique qu’une méthode est non bloquante.
+>
+## ✅ @Scheduled
+>
+> Planifie l’exécution périodique d’une méthode.
 
 [⬅️ Retour à l'accueil](../index.md)
