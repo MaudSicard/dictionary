@@ -1,5 +1,45 @@
 # 🟦 Catégorie : Docker
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Recherche dans la page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+  <style>
+    /* Optionnel : style pour mettre en évidence les résultats */
+    mark {
+      background: yellow;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="search" placeholder="Rechercher dans la page..." />
+
+  <div id="content">
+    <p>Voici un exemple de texte long. Vous pouvez ajouter autant de paragraphes que nécessaire. La recherche vous aidera à retrouver rapidement des informations spécifiques directement dans cette page.</p>
+    <p>Chaque fois que vous tapez dans la barre, le terme recherché sera mis en surbrillance.</p>
+  </div>
+  <script>
+    const context = document.querySelector("#content");
+    const markInstance = new Mark(context);
+    document.getElementById("search").addEventListener("input", function() {
+      const keyword = this.value;
+      markInstance.unmark({
+        done: function() {
+          if (keyword) {
+            markInstance.mark(keyword);
+          }
+        }
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+
+</body>
+</html>
+
 ## ✅ Docker
 
 Docker est une plateforme open source qui permet de développer, expédier et exécuter des applications dans des conteneurs.

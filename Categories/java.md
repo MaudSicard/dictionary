@@ -1,5 +1,45 @@
 # 🟦 Catégorie : Java
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Recherche dans la page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+  <style>
+    /* Optionnel : style pour mettre en évidence les résultats */
+    mark {
+      background: yellow;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="search" placeholder="Rechercher dans la page..." />
+
+  <div id="content">
+    <p>Voici un exemple de texte long. Vous pouvez ajouter autant de paragraphes que nécessaire. La recherche vous aidera à retrouver rapidement des informations spécifiques directement dans cette page.</p>
+    <p>Chaque fois que vous tapez dans la barre, le terme recherché sera mis en surbrillance.</p>
+  </div>
+  <script>
+    const context = document.querySelector("#content");
+    const markInstance = new Mark(context);
+    document.getElementById("search").addEventListener("input", function() {
+      const keyword = this.value;
+      markInstance.unmark({
+        done: function() {
+          if (keyword) {
+            markInstance.mark(keyword);
+          }
+        }
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+
+</body>
+</html>
+
 ## ✅ API Stream
 
 L'**API Stream** en Java, introduite avec **Java 8**, permet de traiter des collections de manière **fonctionnelle** et **efficace**. Elle offre une approche déclarative pour manipuler des ensembles de données sans avoir à gérer explicitement les boucles et les itérations.
