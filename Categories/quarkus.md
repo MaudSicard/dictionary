@@ -50,6 +50,49 @@
       background: #e0e0e0;
     }
     /* Style for highlighted marks */
+    /* Container to center the search input */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    /* Modern style for the search input */
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+    .search-input:hover {
+      border-color: #9e9e9e;
+    }
+    .search-input:focus {
+      border-color: #6200ea;
+      box-shadow: 0 0 10px rgba(98, 0, 234, 0.3);
+    }
+    /* Styles for navigation buttons */
+    .nav-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .nav-buttons button {
+      margin: 0 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f5f5f5;
+    }
+    .nav-buttons button:hover {
+      background: #e0e0e0;
+    }
+    /* Style for highlighted marks */
     mark {
       background: yellow;
       padding: 0;
@@ -59,10 +102,14 @@
       background: orange;
       color: white;
     }
+    /* Style for the currently selected mark element */
+    mark.current {
+      background: orange;
+      color: white;
+    }
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -338,7 +385,13 @@ Injection de propriétés de configuration.
 
 Indique une classe de test utilisant Quarkus.
 
+
+Indique une classe de test utilisant Quarkus.
+
 ## ✅ @TestHTTPEndpoint
+
+Spécifie l’endpoint REST à tester.
+
 
 Spécifie l’endpoint REST à tester.
 
@@ -346,7 +399,13 @@ Spécifie l’endpoint REST à tester.
 
 Injection d’une ressource HTTP pour les tests.
 
+
+Injection d’une ressource HTTP pour les tests.
+
 ## ✅ @RestClient
+
+Injection d’un client REST typé.
+
 
 Injection d’un client REST typé.
 
@@ -354,11 +413,19 @@ Injection d’un client REST typé.
 
 Indique qu’une méthode est bloquante.
 
+
+Indique qu’une méthode est bloquante.
+
 ## ✅ @NonBlocking
 
 Indique qu’une méthode est non bloquante.
 
+
+Indique qu’une méthode est non bloquante.
+
 ## ✅ @Scheduled
+
+Planifie l’exécution périodique d’une méthode.
 
 Planifie l’exécution périodique d’une méthode.
 
