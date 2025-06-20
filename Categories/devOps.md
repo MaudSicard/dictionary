@@ -121,7 +121,6 @@
   <div class="nav-buttons">
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
-  </div>
 
 <!-- Content in which to search -->
   <div id="content" markdown="1">

@@ -121,8 +121,7 @@
   <div class="nav-buttons">
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
-  </div>
-
+    
 <!-- Content in which to search -->
   <div id="content" markdown="1">
 
@@ -783,6 +782,7 @@ Les **systèmes multi-agents (SMA)** sont une approche informatique où plusieur
 
 Dans un jeu vidéo simulant une ville, chaque personnage (agent) agit de manière autonome en fonction de son environnement et des interactions avec les autres personnages.
 
+</div>
 </div>
 [⬅️ Retour à l'accueil](../index.md)
 

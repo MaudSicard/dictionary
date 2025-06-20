@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <title>Search and Navigation Example</title>
   <!-- Include Mark.js from CDN -->
+  <title>Search and Navigation Example</title>
+  <!-- Include Mark.js from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
     /* Container to center the search input */
@@ -1613,6 +1615,7 @@ Un aperçu complet des principaux packages de la bibliothèque standard Java ave
 | `java.lang.reflect`      | Réflexion sur les classes                        |
 | `java.util.concurrent`   | Programmation concurrente avancée               |
 
+</div>
 </div>
 [⬅️ Retour à l'accueil](../index.md)
 
