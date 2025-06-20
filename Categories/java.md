@@ -440,6 +440,75 @@ Ce [chapitre très complet sur la gestion mémoire dans la JVM HotSpot](https://
 
 Hibernate est une solution open source de type ORM (Object Relational Mapping) qui permet de faciliter le développement de la couche persistance d'une application. Hibernate permet donc de représenter une base de données en objets Java et vice versa. Hibernate facilite la persistence et la recherche de données dans une base de données en réalisant lui-même la création des objets et les traitements de remplissage de ceux-ci en accédant à la base de données. La quantité de code ainsi épargnée est très importante d'autant que ce code est généralement fastidieux et redondant. Hibernate est très populaire notamment à cause de ses bonnes performances et de son ouverture à de nombreuses bases de données. Les bases de données supportées sont les principales du marché : DB2, Oracle, MySQL, PostgreSQL, Sybase, SQL Server, Sap DB, Interbase, ...
 
+## ✅ Histoire de Java
+
+L’histoire du langage Java est une véritable saga technologique, née d’un besoin de simplicité, de portabilité et de sécurité dans un monde informatique en pleine mutation.
+
+---
+
+### 🌱 Les origines (1991–1995)
+
+Java a vu le jour en **1991** sous le nom de code **Oak**, dans les laboratoires de **Sun Microsystems**. L’équipe à l’origine du projet, surnommée la *Green Team*, était dirigée par **James Gosling**, accompagné de Mike Sheridan et Patrick Naughton. Leur objectif ? Créer un langage orienté objet, plus simple que C++, capable de fonctionner sur n’importe quel appareil, indépendamment du système d’exploitation.
+
+Mais le nom *Oak* étant déjà déposé, le langage fut rebaptisé **Java** en 1995 — un clin d’œil au café que buvaient les développeurs pendant leurs longues sessions de codage.
+
+---
+
+### 🚀 Le lancement officiel (1995)
+
+Java est présenté au public le **23 mai 1995** lors de la conférence SunWorld. Il se distingue immédiatement par son slogan révolutionnaire :  
+**“Write once, run anywhere”** — *Écris une fois, exécute partout*.  
+Grâce à la **machine virtuelle Java (JVM)**, les programmes Java peuvent être exécutés sur n’importe quelle plateforme compatible, sans modification du code.
+
+---
+
+### 📈 L’essor et la maturité (1996–2009)
+
+Java devient rapidement un pilier du développement logiciel :
+- **Java 1.0** sort en 1996.
+- Il s’impose dans les **applications web** (avec les applets), puis côté **serveur** (avec les servlets et JSP).
+- Il est adopté massivement dans les entreprises, les systèmes embarqués, et plus tard dans le développement **Android**.
+
+---
+
+### 🔄 Oracle et l’évolution continue (2009–aujourd’hui)
+
+En **2009**, Oracle rachète Sun Microsystems et prend en charge le développement de Java. Depuis, le langage évolue régulièrement :
+- Introduction des **expressions lambda** (Java 8),
+- Améliorations de la syntaxe, de la performance et de la sécurité,
+- Dernière version majeure : **Java 24**, sortie en mars 2025.
+
+---
+
+Java reste aujourd’hui l’un des langages les plus utilisés au monde, apprécié pour sa robustesse, sa communauté active et sa capacité à évoluer sans perdre son identité.
+
+Voici un aperçu des **versions majeures de Java** qui ont marqué l’évolution du langage depuis sa création :
+
+---
+
+### 🕰️ Versions historiques
+
+- **Java 1.0 (1996)** : Première version publique. Introduction des applets, AWT, et des bases du langage.
+- **Java 1.2 (1998)** : Introduction de la **Java Platform, Standard Edition (J2SE)**, Swing, Collections Framework.
+- **Java 1.5 (2004)** : Aussi appelée Java 5. Introduction des **génériques**, **annotations**, **enum**, et **autoboxing**.
+- **Java 6 (2006)** : Améliorations de performance, support de scripting via l’API javax.script.
+
+---
+
+### 🚀 Versions modernes
+
+- **Java 7 (2011)** : Syntaxe améliorée (try-with-resources, switch sur String), NIO.2.
+- **Java 8 (2014)** : Révolution majeure avec les **expressions lambda**, **Stream API**, et **Optional**. Encore très utilisée aujourd’hui.
+- **Java 9 (2017)** : Introduction du **système de modules (Project Jigsaw)**.
+- **Java 11 (2018)** : Version **LTS (Long-Term Support)**. Ajout de `var` pour les variables locales, API HTTP Client.
+- **Java 17 (2021)** : Autre version LTS. Ajout des **records**, **sealed classes**, et améliorations de la JVM.
+- **Java 21 (2023)** : LTS récente. Intègre des fonctionnalités comme les **threads virtuels (Project Loom)**, **pattern matching**, et **structured concurrency**.
+- **Java 24 (2025)** : Dernière version à ce jour. Consolidation des nouveautés précédentes, avec des optimisations JVM et des raffinements syntaxiques.
+
+---
+
+Depuis Java 9, Oracle publie une nouvelle version **tous les 6 mois**, mais seules certaines versions sont **LTS**, c’est-à-dire maintenues à long terme (Java 8, 11, 17, 21).
+
 ## ✅ Immutabilité
 
 En Java, l'immutabilité est un concept clé qui garantit qu'un objet ne peut pas être modifié après sa création. Cela améliore la sécurité, la performance et la gestion de la concurrence.

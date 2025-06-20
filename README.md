@@ -13,4 +13,3 @@ Welcome !
 - [Kubernetes](Categories/kubernetes.md)
 - [POO](Categories/POO.md)
 - [Spring](Categories/spring.md)
-- [Outils](Categories/outils.md)
