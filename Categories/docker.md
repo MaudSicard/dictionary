@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -174,7 +173,7 @@ Fichier de configuration texte qui contient les instructions pour construire une
 Référentiel (public ou privé) où les images Docker sont stockées et partagées (ex : Docker Hub).
 
 </div>
-</div>
+
 [⬅️ Retour à l'accueil](../index.md)
 
  <script>

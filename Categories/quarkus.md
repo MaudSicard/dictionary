@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -443,7 +442,7 @@ Planifie l’exécution périodique d’une méthode.
 Planifie l’exécution périodique d’une méthode.
 
 </div>
-</div>
+
 [⬅️ Retour à l'accueil](../index.md)
 
  <script>

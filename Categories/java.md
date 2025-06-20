@@ -1615,8 +1615,6 @@ Un aperçu complet des principaux packages de la bibliothèque standard Java ave
 | `java.lang.reflect`      | Réflexion sur les classes                        |
 | `java.util.concurrent`   | Programmation concurrente avancée               |
 
-## ✅ test
-
 </div>
 </div>
 [⬅️ Retour à l'accueil](../index.md)

@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -182,7 +181,7 @@ Composant (ex. dans Kubernetes) chargé de planifier où et quand exécuter les 
 Technique de partitionnement horizontal des données où une base est divisée en fragments (shards), chacun stocké sur un serveur différent pour améliorer la scalabilité.
 
 </div>
-</div>
+
 [⬅️ Retour à l'accueil](../index.md)
 
   <script>

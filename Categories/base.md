@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -122,21 +121,7 @@
   <div class="nav-buttons">
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
-
-  <!-- Search input container -->
-  <div class="search-container">
-    <input type="text" id="search" class="search-input" placeholder="Search in the page...">
-  </div>
-
-  <!-- Navigation buttons for previous and next occurrences -->
-  <div class="nav-buttons">
-    <button id="prevBtn">Previous</button>
-    <button id="nextBtn">Next</button>
-  </div>
-
-<!-- Content in which to search -->
-  <div id="content" markdown="1">
-
+    
 <!-- Content in which to search -->
   <div id="content" markdown="1">
 

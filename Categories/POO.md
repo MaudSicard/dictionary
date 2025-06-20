@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <!-- Search input container -->
   <div class="search-container">
     <input type="text" id="search" class="search-input" placeholder="Search in the page...">
@@ -186,7 +185,7 @@ Paradigme de programmation basé sur les objets, la classe, l’héritage, l’e
 Acronyme représentant cinq principes de conception en POO : Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.
 
 </div>
-</div>
+
 [⬅️ Retour à l'accueil](../index.md)
 
  <script>
