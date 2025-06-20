@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <title>Search and Navigation Example</title>
   <!-- Include Mark.js from CDN -->
-  <title>Search and Navigation Example</title>
-  <!-- Include Mark.js from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
     /* Container to center the search input */
@@ -123,15 +121,6 @@
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
 
-  <!-- Search input container -->
-  <div class="search-container">
-    <input type="text" id="search" class="search-input" placeholder="Search in the page...">
-  </div>
-
-  <!-- Navigation buttons for previous and next occurrences -->
-  <div class="nav-buttons">
-    <button id="prevBtn">Previous</button>
-    <button id="nextBtn">Next</button>
   </div>
 
 <!-- Content in which to search -->
@@ -271,7 +260,6 @@ class Singleton {
 }
 ```
 
-</div>
 </div>
 [⬅️ Retour à l'accueil](../index.md)
 
