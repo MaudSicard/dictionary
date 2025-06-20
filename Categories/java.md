@@ -1,13 +1,11 @@
 # 🟦 Catégorie : Java
 
-<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Recherche dans la page</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
-    /* Optionnel : style pour mettre en évidence les résultats */
     mark {
       background: yellow;
       padding: 0;
@@ -892,9 +890,7 @@ En Java, les types primitifs sont des types de données de base qui ne sont pas 
 
 (AOP - Aspect-Oriented Programming) : Permet de séparer les préoccupations transversales (logging, sécurité, transactions).
 
-## ✅ Programmation parralèle et concurente
-
-# 🧵 Programmation Parallèle et Concurrente en Java
+## ✅ 🧵 Programmation parralèle et concurente
 
 ## 🧩 Concepts clés
 
