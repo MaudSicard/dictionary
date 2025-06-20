@@ -141,7 +141,7 @@
 </html>
 
 <!-- Content in which to search -->
-<div id="content">
+<div id="content" markdown="1">
 
 ## ✅ JWT et Quarkus
 
