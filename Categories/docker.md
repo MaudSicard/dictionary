@@ -5,8 +5,53 @@
   <meta charset="UTF-8">
   <title>Search and Navigation Example</title>
   <!-- Include Mark.js from CDN -->
+  <title>Search and Navigation Example</title>
+  <!-- Include Mark.js from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
+    /* Container to center the search input */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    /* Modern style for the search input */
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+    .search-input:hover {
+      border-color: #9e9e9e;
+    }
+    .search-input:focus {
+      border-color: #6200ea;
+      box-shadow: 0 0 10px rgba(98, 0, 234, 0.3);
+    }
+    /* Styles for navigation buttons */
+    .nav-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .nav-buttons button {
+      margin: 0 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f5f5f5;
+    }
+    .nav-buttons button:hover {
+      background: #e0e0e0;
+    }
+    /* Style for highlighted marks */
     /* Container to center the search input */
     .search-container {
       display: flex;
@@ -59,6 +104,11 @@
       background: orange;
       color: white;
     }
+    /* Style for the currently selected mark element */
+    mark.current {
+      background: orange;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -72,8 +122,62 @@
   <div class="nav-buttons">
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
+
+  <!-- Search input container -->
+  <div class="search-container">
+    <input type="text" id="search" class="search-input" placeholder="Search in the page...">
   </div>
-  <script>
+
+  <!-- Navigation buttons for previous and next occurrences -->
+  <div class="nav-buttons">
+    <button id="prevBtn">Previous</button>
+    <button id="nextBtn">Next</button>
+  </div>
+
+<!-- Content in which to search -->
+<div id="content" markdown="1">
+
+## ✅ Docker
+
+Docker est une plateforme open source qui permet de développer, expédier et exécuter des applications dans des conteneurs.
+
+## ✅ Docker API
+
+Interface RESTful permettant de contrôler le moteur Docker (Docker Engine) à distance via des requêtes HTTP.
+
+## ✅ Docker
+
+CLI Interface en ligne de commande (docker) pour interagir avec le moteur Docker : créer, exécuter, inspecter des conteneurs.
+
+## ✅ Docker Compose
+
+Outil permettant de définir et de gérer des applications multi-conteneurs à l’aide d’un fichier YAML (docker-compose.yml).
+
+## ✅ Docker engine
+
+Moteur principal de Docker qui permet la création, l’exécution et la gestion des conteneurs.
+
+## ✅ Docker Images
+
+Modèle figé (read-only) contenant tout le nécessaire pour exécuter une application (code, bibliothèques, dépendances).
+
+## ✅ Docker Swarm
+
+Outil natif d’orchestration de conteneurs Docker permettant de gérer des clusters et le déploiement d’applications en mode distribué.
+
+## ✅ Dockerfile
+
+Fichier de configuration texte qui contient les instructions pour construire une image Docker personnalisée.
+
+## ✅ Registry
+
+Référentiel (public ou privé) où les images Docker sont stockées et partagées (ex : Docker Hub).
+
+</div>
+</div>
+[⬅️ Retour à l'accueil](../index.md)
+
+ <script>
     // Get the search input and navigation buttons
     const searchInput = document.getElementById("search");
     const prevBtn = document.getElementById("prevBtn");
@@ -139,45 +243,3 @@
   </script>
 </body>
 </html>
-
-<!-- Content in which to search -->
-<div id="content" markdown="1">
-
-## ✅ Docker
-
-Docker est une plateforme open source qui permet de développer, expédier et exécuter des applications dans des conteneurs.
-
-## ✅ Docker API
-
-Interface RESTful permettant de contrôler le moteur Docker (Docker Engine) à distance via des requêtes HTTP.
-
-## ✅ Docker
-
-CLI Interface en ligne de commande (docker) pour interagir avec le moteur Docker : créer, exécuter, inspecter des conteneurs.
-
-## ✅ Docker Compose
-
-Outil permettant de définir et de gérer des applications multi-conteneurs à l’aide d’un fichier YAML (docker-compose.yml).
-
-## ✅ Docker engine
-
-Moteur principal de Docker qui permet la création, l’exécution et la gestion des conteneurs.
-
-## ✅ Docker Images
-
-Modèle figé (read-only) contenant tout le nécessaire pour exécuter une application (code, bibliothèques, dépendances).
-
-## ✅ Docker Swarm
-
-Outil natif d’orchestration de conteneurs Docker permettant de gérer des clusters et le déploiement d’applications en mode distribué.
-
-## ✅ Dockerfile
-
-Fichier de configuration texte qui contient les instructions pour construire une image Docker personnalisée.
-
-## ✅ Registry
-
-Référentiel (public ou privé) où les images Docker sont stockées et partagées (ex : Docker Hub).
-
-</div>
-[⬅️ Retour à l'accueil](../index.md)

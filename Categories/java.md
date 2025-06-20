@@ -5,8 +5,53 @@
   <meta charset="UTF-8">
   <title>Search and Navigation Example</title>
   <!-- Include Mark.js from CDN -->
+  <title>Search and Navigation Example</title>
+  <!-- Include Mark.js from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
   <style>
+    /* Container to center the search input */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    /* Modern style for the search input */
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+    .search-input:hover {
+      border-color: #9e9e9e;
+    }
+    .search-input:focus {
+      border-color: #6200ea;
+      box-shadow: 0 0 10px rgba(98, 0, 234, 0.3);
+    }
+    /* Styles for navigation buttons */
+    .nav-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .nav-buttons button {
+      margin: 0 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f5f5f5;
+    }
+    .nav-buttons button:hover {
+      background: #e0e0e0;
+    }
+    /* Style for highlighted marks */
     /* Container to center the search input */
     .search-container {
       display: flex;
@@ -59,6 +104,11 @@
       background: orange;
       color: white;
     }
+    /* Style for the currently selected mark element */
+    mark.current {
+      background: orange;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -73,72 +123,6 @@
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
   </div>
-  <script>
-    // Get the search input and navigation buttons
-    const searchInput = document.getElementById("search");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    // Define the context where Mark.js will search
-    const context = document.querySelector("#content");
-    const markInstance = new Mark(context);
-    // Array to store marked elements and an index for the current result
-    let markedElements = [];
-    let currentIndex = -1;
-    // Function to perform the marking based on the input keyword
-    function doMark() {
-      const keyword = searchInput.value.trim();
-      // Remove previous markings
-      markInstance.unmark({
-        done: function() {
-          if (keyword) {
-            // Mark all occurrences of the keyword
-            markInstance.mark(keyword, {
-              done: function() {
-                // Retrieve all generated <mark> elements
-                markedElements = document.querySelectorAll("mark");
-                // Reset current index (set to first element if available)
-                currentIndex = markedElements.length > 0 ? 0 : -1;
-                highlightCurrent();
-              }
-            });
-          } else {
-            // Clear marked elements and reset index if input is empty
-            markedElements = [];
-            currentIndex = -1;
-          }
-        }
-      });
-    }
-    // Function to highlight the current marked element and scroll it into view
-    function highlightCurrent() {
-      // Remove the "current" class from all marked elements
-      markedElements.forEach(el => el.classList.remove("current"));
-      if (markedElements.length > 0 && currentIndex >= 0) {
-        const currentMark = markedElements[currentIndex];
-        currentMark.classList.add("current");
-        // Scroll the current marked element smoothly into view, centered in the viewport
-        currentMark.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }
-    // Listen for input events to perform live search and marking
-    searchInput.addEventListener("input", function() {
-      doMark();
-    });
-    // Event listener for the "Previous" button to move to the previous occurrence
-    prevBtn.addEventListener("click", function() {
-      if (markedElements.length === 0) return;
-      currentIndex = (currentIndex - 1 + markedElements.length) % markedElements.length;
-      highlightCurrent();
-    });
-    // Event listener for the "Next" button to move to the next occurrence
-    nextBtn.addEventListener("click", function() {
-      if (markedElements.length === 0) return;
-      currentIndex = (currentIndex + 1) % markedElements.length;
-      highlightCurrent();
-    });
-  </script>
-</body>
-</html>
 
 <!-- Content in which to search -->
 <div id="content" markdown="1">
@@ -608,6 +592,7 @@ Grâce à la **machine virtuelle Java (JVM)**, les programmes Java peuvent être
 ### 📈 L’essor et la maturité (1996–2009)
 
 Java devient rapidement un pilier du développement logiciel :
+
 - **Java 1.0** sort en 1996.
 - Il s’impose dans les **applications web** (avec les applets), puis côté **serveur** (avec les servlets et JSP).
 - Il est adopté massivement dans les entreprises, les systèmes embarqués, et plus tard dans le développement **Android**.
@@ -617,6 +602,7 @@ Java devient rapidement un pilier du développement logiciel :
 ### 🔄 Oracle et l’évolution continue (2009–aujourd’hui)
 
 En **2009**, Oracle rachète Sun Microsystems et prend en charge le développement de Java. Depuis, le langage évolue régulièrement :
+
 - Introduction des **expressions lambda** (Java 8),
 - Améliorations de la syntaxe, de la performance et de la sécurité,
 - Dernière version majeure : **Java 24**, sortie en mars 2025.
@@ -753,6 +739,24 @@ JAR est le diminutif de Java ARchive. C'est un format de fichier qui permet de r
 ## ✅ Javadoc
 
 Javadoc est un outil fourni avec le JDK pour permettre la génération d'une documentation technique à partir du code source. Cet outil génère une documentation au format HTML à partir du code source Java et des commentaires particuliers qu'il contient. Un exemple concret de l'utilisation de cet outil est la documentation du JDK qui est générée grâce à Javadoc.
+
+## ✅ Java Platform
+
+La Java Platform est un environnement logiciel complet qui permet de développer, compiler et exécuter des applications Java sur divers systèmes d'exploitation. Voici ses éléments clés :
+
+- **Java Virtual Machine (JVM) :** C’est le moteur d’exécution qui interprète le bytecode généré par le compilateur Java. Grâce à la JVM, le même programme peut tourner sur plusieurs plateformes sans modification, d’où le principe "Write Once, Run Anywhere".
+
+- **Bibliothèques et API :** La plateforme inclut un ensemble de bibliothèques standard qui offrent des fonctionnalités prêtes à l’emploi pour la manipulation de collections, la gestion des entrées/sorties, le développement réseau, l’internationalisation, et bien plus. Ces outils facilitent grandement le développement d’applications robustes.
+
+- **Éditions de la plateforme :**  
+  - **Java Standard Edition (Java SE) :** La version de base qui sert aussi bien pour développer des applications desktop que pour réaliser des outils divers.  
+  - **Java Enterprise Edition (Java EE), désormais Jakarta EE :** Conçue pour les applications d’entreprise, elle intègre des fonctionnalités supplémentaires comme les servlets, la gestion des transactions, et le support web.  
+  - **Java Micro Edition (Java ME) :** Adaptée aux appareils embarqués et aux environnements aux ressources limitées, comme certains smartphones ou systèmes embarqués.  
+  - **JavaFX :** Utilisée pour créer des interfaces utilisateur modernes et riches.
+
+En résumé, la Java Platform offre non seulement un langage (Java) mais également un écosystème complet qui favorise le développement de logiciels portables, performants et sécurisés. Ce concept de plateforme met l’accent sur l’interopérabilité et la polyvalence, permettant aux développeurs de créer des applications qui fonctionnent de manière identique sur plusieurs environnements, tout en bénéficiant d’un vaste ensemble de bibliothèques et d’outils pour accélérer et sécuriser le développement.
+
+Selon Wikipedia, la dénomination "Java Platform" désigne en réalité l'ensemble des composants (JVM, bibliothèques standards, outils de développement) qui constituent l’environnement d’exécution et le framework de base permettant d’exécuter des applications écrites en Java[^6^].
 
 ## ✅ JDBC
 
@@ -961,6 +965,104 @@ public class ExempleGestionExceptions {
 ## ✅ Maven
 
 Maven est un outil de construction de projets (build) open source développé par la fondation Apache, initialement pour les besoins du projet Jakarta Turbine. Il permet de faciliter et d'automatiser certaines tâches de la gestion d'un projet Java.
+
+## ✅ Optional
+
+La classe `Optional<T>` est un conteneur introduit avec Java 8 pour représenter de manière explicite la possibilité qu'une valeur soit présente ou non, plutôt que de recourir aux références null. Cela permet d'éviter de nombreux problèmes liés aux NullPointerExceptions et rend le code plus lisible en forçant l'appelant à gérer le cas d'une valeur absente. [^3^][^4^]
+
+### Création d'un `Optional`
+
+Il existe plusieurs façons de créer un `Optional` :
+
+- **Avec une valeur garantie non nulle :**
+
+  ```java
+  Optional<String> opt = Optional.of("Hello");
+  ```
+
+  Utilisez `of` lorsque vous êtes certain que la valeur n'est pas nulle. Sinon, cette méthode lèvera une `NullPointerException`.
+
+- **Avec une valeur potentiellement nulle :**
+
+  ```java
+  Optional<String> optNullable = Optional.ofNullable(null);
+  ```
+
+  Grâce à `ofNullable`, si la valeur passée est nulle, l'`Optional` sera vide.
+
+- **Pour représenter explicitement l'absence d'une valeur :**
+
+  ```java
+  Optional<String> emptyOpt = Optional.empty();
+  ```
+
+  Ceci crée un `Optional` vide. [^3^]
+
+### Utilisation d'`Optional` dans vos méthodes
+
+Plutôt que de retourner directement une valeur qui peut être nulle, vous pouvez retourner un `Optional`. Par exemple :
+
+```java
+public Optional<String> getUserNameById(String id) {
+    String username = /* logique pour récupérer le nom d’utilisateur */;
+    return Optional.ofNullable(username);
+}
+```
+
+L'appelant devra ensuite gérer le cas du vide :
+
+```java
+Optional<String> usernameOpt = getUserNameById("123");
+
+usernameOpt.ifPresent(u -> System.out.println("Nom d'utilisateur : " + u));
+// ou
+String username = usernameOpt.orElse("Utilisateur inconnu");
+System.out.println(username);
+```
+
+### Méthodes courantes
+
+Parmi les méthodes les plus utilisées sur un `Optional`, on retrouve :
+
+- **isPresent() et isEmpty()**  
+  Permettent de savoir si une valeur est contenue dans l'`Optional`.
+
+- **ifPresent(Consumer<? super T> action)**  
+  Exécute l'action donnée si la valeur est présente.
+
+- **orElse(T other)**  
+  Retourne la valeur si présente, sinon retourne la valeur par défaut.
+
+- **orElseGet(Supplier<? extends T> supplier)**  
+  Semblable à `orElse`, mais la valeur par défaut est générée à la demande (ce qui peut éviter de coûteux calculs inutiles).
+
+- **orElseThrow()** ou **orElseThrow(Supplier<? extends X> exceptionSupplier)**  
+  Permet de lever une exception si aucune valeur n'est présente.
+
+- **map(Function<? super T, ? extends U> mapper)** et **flatMap(Function<? super T, Optional<U>> mapper)**  
+  Pour transformer la valeur contenue dans l'`Optional` de manière fluide, tout en gérant la possibilité d'une absence de valeur.
+
+Par exemple, pour transformer et filtrer une valeur :
+
+```java
+Optional<String> opt = Optional.of("java");
+Optional<String> upperOpt = opt.map(String::toUpperCase);
+    
+upperOpt.ifPresent(System.out::println);  // Affichera "JAVA"
+```
+
+### Bonnes pratiques
+
+- **Utilisation en sortie (retour de méthode) :**  
+  Il est recommandé d'utiliser `Optional` comme type de retour des méthodes, afin de signaler clairement qu'une valeur peut être absente.
+
+- **Attention à l'usage en tant que champ ou paramètre :**  
+  De nombreux experts (comme Brian Goetz) recommandent de n'utiliser `Optional` ni pour les paramètres de méthodes ni pour les attributs de classes, afin d'éviter une surcomplexification du code. [^3^]
+
+- **Chaînage d'opérations :**  
+  Les méthodes comme `map`, `flatMap` et `filter` permettent d'écrire un code fluide et fonctionnel sans avoir à vérifier constamment si la valeur existe. [^4^]
+
+En résumé, `Optional` est une excellente façon de rendre vos méthodes plus sûres et vos intentions plus explicites quant à la possibilité d'absence de résultat. En l'utilisant, vous forcez le développeur appelant à traiter le cas où la donnée n'est pas présente et vous réduisez ainsi le risque d'erreurs liées aux valeurs nulles.
 
 ## ✅ POJO
 
@@ -1516,4 +1618,72 @@ Un aperçu complet des principaux packages de la bibliothèque standard Java ave
 ## ✅ test
 
 </div>
+</div>
 [⬅️ Retour à l'accueil](../index.md)
+
+<script>
+    // Get the search input and navigation buttons
+    const searchInput = document.getElementById("search");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    // Define the context where Mark.js will search
+    const context = document.querySelector("#content");
+    const markInstance = new Mark(context);
+    // Array to store marked elements and an index for the current result
+    let markedElements = [];
+    let currentIndex = -1;
+    // Function to perform the marking based on the input keyword
+    function doMark() {
+      const keyword = searchInput.value.trim();
+      // Remove previous markings
+      markInstance.unmark({
+        done: function() {
+          if (keyword) {
+            // Mark all occurrences of the keyword
+            markInstance.mark(keyword, {
+              done: function() {
+                // Retrieve all generated <mark> elements
+                markedElements = document.querySelectorAll("mark");
+                // Reset current index (set to first element if available)
+                currentIndex = markedElements.length > 0 ? 0 : -1;
+                highlightCurrent();
+              }
+            });
+          } else {
+            // Clear marked elements and reset index if input is empty
+            markedElements = [];
+            currentIndex = -1;
+          }
+        }
+      });
+    }
+    // Function to highlight the current marked element and scroll it into view
+    function highlightCurrent() {
+      // Remove the "current" class from all marked elements
+      markedElements.forEach(el => el.classList.remove("current"));
+      if (markedElements.length > 0 && currentIndex >= 0) {
+        const currentMark = markedElements[currentIndex];
+        currentMark.classList.add("current");
+        // Scroll the current marked element smoothly into view, centered in the viewport
+        currentMark.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+    // Listen for input events to perform live search and marking
+    searchInput.addEventListener("input", function() {
+      doMark();
+    });
+    // Event listener for the "Previous" button to move to the previous occurrence
+    prevBtn.addEventListener("click", function() {
+      if (markedElements.length === 0) return;
+      currentIndex = (currentIndex - 1 + markedElements.length) % markedElements.length;
+      highlightCurrent();
+    });
+    // Event listener for the "Next" button to move to the next occurrence
+    nextBtn.addEventListener("click", function() {
+      if (markedElements.length === 0) return;
+      currentIndex = (currentIndex + 1) % markedElements.length;
+      highlightCurrent();
+    });
+  </script>
+</body>
+</html>
