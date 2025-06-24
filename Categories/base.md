@@ -120,7 +120,7 @@
     <button id="prevBtn">Previous</button>
     <button id="nextBtn">Next</button>
     </div>
-    
+
 <!-- Content in which to search -->
   <div id="content" markdown="1">
 
@@ -315,6 +315,131 @@ Base de données clé-valeur en mémoire, extrêmement rapide, utilisée comme c
 ## ✅ Service
 
 Composant ou unité fonctionnelle qui exécute une tâche spécifique dans un système distribué. En microservices, chaque service est autonome et indépendant.
+
+## ✅ Sécurité - les bonnes pratiques
+
+Voici un guide plus approfondi des **bonnes pratiques de sécurité en programmation**, en s’appuyant sur les recommandations de Snyk, GitGuardian et l’ANSSI :
+
+---
+
+### 🔐 1. **Validation stricte des entrées**
+- **Filtrage côté client ET serveur** : ne jamais se fier uniquement au front-end.
+- **Whitelist plutôt que blacklist** : autoriser uniquement ce qui est explicitement attendu.
+- **Protection contre les injections** : utiliser des requêtes préparées (ex. : `PreparedStatement` en Java, `PDO` en PHP).
+
+---
+
+### 🧱 2. **Principe du moindre privilège**
+- **Comptes applicatifs restreints** : pas d’accès root ou admin par défaut.
+- **Séparation des rôles** : chaque module ou utilisateur doit avoir un périmètre d’action limité.
+- **Conteneurs isolés** : en microservices, chaque service doit être cloisonné.
+
+---
+
+### 🔒 3. **Gestion sécurisée des secrets**
+- **Ne jamais stocker de secrets dans le code source**.
+- **Utiliser des gestionnaires de secrets** : HashiCorp Vault, AWS Secrets Manager, Doppler…
+- **Rotation régulière des clés** : automatiser leur renouvellement.
+
+---
+
+### 🧪 4. **Sécurité intégrée au cycle de développement (SSDLC)**
+- **Shift-left** : intégrer les tests de sécurité dès la phase de conception.
+- **Analyse statique (SAST)** : détecter les vulnérabilités dans le code source.
+- **Analyse dynamique (DAST)** : tester l’application en cours d’exécution.
+- **Revue de code croisée** : impliquer plusieurs développeurs pour détecter les failles.
+
+---
+
+### 🧼 5. **Hygiène du code et des dépendances**
+- **Mise à jour régulière des bibliothèques** : surveiller les CVE connues.
+- **Utiliser des outils comme Snyk, OWASP Dependency-Check, npm audit**.
+- **Supprimer les dépendances inutilisées** : chaque package est une surface d’attaque potentielle.
+
+---
+
+### 🧯 6. **Gestion des erreurs et des logs**
+- **Ne jamais exposer les messages d’erreur complets en production**.
+- **Masquer les données sensibles dans les logs** (tokens, mots de passe, etc.).
+- **Configurer une journalisation centralisée et surveillée** (ex. : ELK, Datadog).
+
+---
+
+### 🧰 7. **Sécuriser l’environnement d’exécution**
+- **Configurer correctement les serveurs** (headers HTTP, CORS, CSP…).
+- **Limiter les permissions des fichiers et des processus**.
+- **Utiliser des conteneurs signés et vérifiés**.
+
+---
+
+### 📚 Ressources utiles
+- [Guide Snyk sur la programmation sécurisée](https://snyk.io/fr/articles/secure-coding-practices/)
+- [Top 10 des pratiques de sécurité selon Silicon](https://www.silicon.fr/Thematique/actualites-1367/Breves/Developpement-logiciel-securise-les-10-meilleures-pratiques-459238.htm)
+- [Guide ANSSI pour le développement sécurisé en C](https://cyber.gouv.fr/publications/regles-de-programmation-pour-le-developpement-securise-de-logiciels-en-langage-c)
+
+## ✅ SSO (Single Sign-On) et OAuth 2.0
+
+Le **SSO (Single Sign-On)** et **OAuth 2.0** sont deux concepts liés à l’authentification et à l’autorisation, mais ils servent des objectifs légèrement différents. Cependant, ils sont souvent utilisés ensemble pour offrir une expérience utilisateur fluide et sécurisée.
+
+---
+
+### **1. Qu'est-ce que le SSO ?**
+Le **SSO (Single Sign-On)** est un mécanisme permettant à un utilisateur de se connecter **une seule fois** (avec un seul identifiant/mot de passe) pour accéder à **plusieurs applications ou services** sans avoir à se reconnecter.
+
+**Exemple classique :**
+- Vous vous connectez à votre compte Google (Gmail), puis vous accédez à YouTube, Google Drive, ou Docs **sans ressaisir vos identifiants**.
+
+---
+
+### **2. Comment OAuth 2.0 intervient dans le SSO ?**
+OAuth 2.0 n’est pas un protocole d’authentification (contrairement à **OpenID Connect**, qui est une extension d’OAuth 2.0 pour l’authentification). Cependant, il joue un rôle clé dans le SSO en :
+
+✅ **Délégant l’autorisation** : Une fois qu’un utilisateur est authentifié (via SSO), OAuth 2.0 permet à d’autres applications d’accéder à ses ressources **sans demander à nouveau son mot de passe**.
+
+✅ **Partageant la session d’authentification** : Quand vous vous connectez à un fournisseur d’identité (comme Google, Microsoft, Okta), ce dernier peut émettre un **jeton (token)** qui sera utilisé par d’autres applications pour vérifier votre identité (sans nouvelle authentification).
+
+#### **Exemple concret :**
+1. **Authentification SSO** : Vous vous connectez à votre compte Google.
+2. **Autorisation OAuth 2.0** :
+   - Une application tierce (ex : Slack) veut accéder à votre profil Google.
+   - Google vérifie que vous êtes déjà connecté (via SSO) et demande votre consentement.
+   - Si vous acceptez, Google envoie un **jeton d’accès (OAuth 2.0)** à Slack, qui peut alors récupérer vos infos **sans connaître votre mot de passe**.
+
+---
+
+### **3. OpenID Connect (OIDC) : Le chaînon manquant entre SSO et OAuth 2.0**
+OAuth 2.0 ne gère **que l’autorisation**, pas l’authentification. C’est là qu’intervient **OpenID Connect (OIDC)**, une couche supplémentaire qui :
+- S’appuie sur OAuth 2.0.
+- Ajoute des informations d’**identité utilisateur** (comme un email ou un nom) via un **jeton d’identité (ID Token)**.
+
+**Ainsi, un système SSO moderne utilise souvent :**
+1. **OAuth 2.0** → Pour l’autorisation ("Cette app peut-elle accéder à mes données ?").
+2. **OpenID Connect (OIDC)** → Pour l’authentification ("Qui est cet utilisateur ?").
+
+---
+
+### **4. Résumé des différences et complémentarités**
+| **Fonctionnalité**       | **OAuth 2.0** | **SSO** | **OpenID Connect (OIDC)** |
+|--------------------------|--------------|---------|--------------------------|
+| **Gère l'authentification** ❓ | ❌ Non | ✅ Oui | ✅ Oui |
+| **Gère l'autorisation** 🔑 | ✅ Oui | ❌ Non | ✅ (via OAuth 2.0) |
+| **Utilisé pour le SSO ?** | Indirectement | Directement | Oui (en combinaison) |
+| **Exemple** | Accès à l'API Google Drive | Connexion unique à plusieurs apps | Vérification de l'identité (Google Login) |
+
+---
+
+### **5. Cas d’usage : SSO avec OAuth 2.0 + OIDC**
+- **Entreprise** : Un employé se connecte une fois à Microsoft Azure AD et accède à Salesforce, Slack, etc. sans ressaisir son mot de passe.
+- **Grand public** : "Se connecter avec Google/Facebook" sur un site e-commerce (SSO + OAuth 2.0 pour accéder au profil).
+
+---
+
+#### **Conclusion**
+- **SSO** = Une seule connexion pour plusieurs apps.
+- **OAuth 2.0** = Mécanisme d’autorisation pour accéder à des ressources sans mot de passe.
+- **OpenID Connect (OIDC)** = Ajoute l’authentification à OAuth 2.0 pour permettre un **SSO sécurisé**.
+
+Ensemble, ils forment un système puissant pour une expérience utilisateur fluide et sécurisée. 🔒🚀
 
 ## ✅ TDD
 
