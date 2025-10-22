@@ -174,8 +174,8 @@ public class StreamExample {
 
 ### 🔹 **Cas d'utilisation**
 
-✅ **Traitement de grandes collections** sans boucle explicite  
-✅ **Optimisation des performances** grâce au traitement paresseux  
+✅ **Traitement de grandes collections** sans boucle explicite
+✅ **Optimisation des performances** grâce au traitement paresseux
 ✅ **Manipulation avancée des données** avec filtrage et transformation
 
 ## ✅ Applet
@@ -317,6 +317,219 @@ Stocke des **paires clé-valeur**.
 ## ✅ Compilateur Javac
 
 Cet outil est le compilateur : il utilise un fichier source Java fourni en paramètre pour créer un ou plusieurs fichiers contenant le bytecode Java correspondant. Pour chaque fichier source, un fichier portant le même nom avec l'extension .class est créé si la compilation se déroule bien.
+
+## ✅ Date
+Bien sûr Maud ! Voici une fiche **Markdown complète** enrichie avec les classes `Instant`, `Duration` et les **conversions possibles** entre les différentes manières de gérer les dates en Java.
+
+---
+
+### 📘 Java – Les différentes manières de gérer les dates
+
+Java propose plusieurs approches pour manipuler les dates, selon la version du langage et les besoins du projet.
+
+---
+
+#### 🧩 1. `java.util.Date`
+
+##### ✅ Description
+- Représente un **instant précis** (date + heure)
+- **Mutable**, mais de nombreuses méthodes sont **dépréciées**
+- Utilisée pour compatibilité avec les anciennes API
+
+##### 🔧 Exemple
+
+```java
+Date maintenant = new Date();
+System.out.println(maintenant);
+```
+
+---
+
+#### 🧭 2. `java.util.Calendar`
+
+##### ✅ Description
+- Permet de manipuler les champs d’une date (jour, mois, année…)
+- Plus flexible que `Date`, mais toujours **verbeux** et **mutable**
+
+##### 🔧 Exemple
+
+```java
+Calendar cal = Calendar.getInstance();
+cal.set(2025, Calendar.OCTOBER, 22);
+Date date = cal.getTime();
+```
+
+---
+
+#### 📅 3. `java.time.LocalDate` (Java 8+)
+
+##### ✅ Description
+- Représente une **date sans heure ni fuseau horaire**
+- **Immuable** et **thread-safe**
+
+##### 🔧 Exemple
+
+```java
+LocalDate aujourdHui = LocalDate.now();
+LocalDate anniversaire = LocalDate.of(1990, 5, 15);
+```
+
+---
+
+#### ⏰ 4. `java.time.LocalDateTime`
+
+##### ✅ Description
+- Représente une **date + heure** sans fuseau horaire
+
+##### 🔧 Exemple
+
+```java
+LocalDateTime maintenant = LocalDateTime.now();
+LocalDateTime futur = maintenant.plusHours(3);
+```
+
+---
+
+#### 🌍 5. `java.time.ZonedDateTime`
+
+##### ✅ Description
+- Représente une **date + heure + fuseau horaire**
+- Idéal pour les applications internationales
+
+##### 🔧 Exemple
+
+```java
+ZonedDateTime zoned = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+```
+
+---
+
+#### 🕒 6. `java.time.Instant`
+
+##### ✅ Description
+- Représente un **instant précis en UTC**
+- Idéal pour les horodatages (timestamps)
+
+##### 🔧 Exemple
+
+```java
+Instant maintenant = Instant.now();
+Instant plusTard = maintenant.plusSeconds(3600);
+```
+
+---
+
+#### ⏳ 7. `java.time.Duration`
+
+##### ✅ Description
+- Représente une **durée entre deux instants**
+- Utile pour mesurer des intervalles de temps
+
+##### 🔧 Exemple
+
+```java
+Instant debut = Instant.now();
+// ... traitement ...
+Instant fin = Instant.now();
+Duration duree = Duration.between(debut, fin);
+System.out.println(duree.toMillis() + " ms");
+```
+
+---
+
+#### 🧪 8. `java.time.format.DateTimeFormatter`
+
+##### ✅ Description
+- Permet de **formater** et **parser** des dates avec des motifs personnalisés
+
+##### 🔧 Formatage
+
+```java
+LocalDate date = LocalDate.of(2025, 10, 22);
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+String texte = date.format(formatter); // "22/10/2025"
+```
+
+##### 🔧 Parsing
+
+```java
+String texte = "15-05-1990";
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+LocalDate date = LocalDate.parse(texte, formatter);
+```
+
+---
+
+#### 🔄 Conversions entre types
+
+##### 🔁 `Date` → `Instant`
+
+```java
+Date date = new Date();
+Instant instant = date.toInstant();
+```
+
+---
+
+##### 🔁 `Instant` → `Date`
+
+```java
+Instant instant = Instant.now();
+Date date = Date.from(instant);
+```
+
+---
+
+##### 🔁 `LocalDateTime` → `Instant`
+
+```java
+LocalDateTime ldt = LocalDateTime.now();
+Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+```
+
+---
+
+##### 🔁 `Instant` → `LocalDateTime`
+
+```java
+Instant instant = Instant.now();
+LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+```
+
+---
+
+##### 🔁 `Calendar` → `Instant`
+
+```java
+Calendar cal = Calendar.getInstance();
+Instant instant = cal.toInstant();
+```
+
+---
+
+##### 🔁 `Instant` → `Calendar`
+
+```java
+Instant instant = Instant.now();
+Calendar cal = Calendar.getInstance();
+cal.setTime(Date.from(instant));
+```
+
+---
+
+#### 🧠 Comparatif rapide
+
+| Classe              | Date | Heure | Fuseau | Mutable | API moderne |
+|---------------------|------|-------|--------|---------|-------------|
+| `Date`              | ✅    | ✅     | ✅      | ✅       | ❌           |
+| `Calendar`          | ✅    | ✅     | ✅      | ✅       | ❌           |
+| `LocalDate`         | ✅    | ❌     | ❌      | ❌       | ✅           |
+| `LocalDateTime`     | ✅    | ✅     | ❌      | ❌       | ✅           |
+| `ZonedDateTime`     | ✅    | ✅     | ✅      | ❌       | ✅           |
+| `Instant`           | ✅    | ✅     | UTC     | ❌       | ✅           |
+| `Duration`          | ❌    | ✅     | ❌      | ❌       | ✅           |
+
+---
 
 ## ✅ Enum
 
@@ -525,17 +738,17 @@ La **gestion de la mémoire en Java** repose principalement sur la **JVM (Java V
 
 ### 🧠 Les zones mémoire principales
 
-1. **Heap (tas)** :  
+1. **Heap (tas)** :
    - Contient tous les objets créés dynamiquement (`new`).
    - Gérée par le Garbage Collector.
    - Divisée en **Young Generation**, **Old Generation**, et parfois **Metaspace**.
 
-2. **Stack (pile)** :  
+2. **Stack (pile)** :
    - Contient les variables locales, les appels de méthode, etc.
    - Chaque thread a sa propre pile.
    - Mémoire gérée automatiquement à la fin de chaque méthode.
 
-3. **Metaspace** (depuis Java 8) :  
+3. **Metaspace** (depuis Java 8) :
    - Contient les métadonnées des classes (remplace l’ancien PermGen).
 
 ---
@@ -583,8 +796,8 @@ Mais le nom *Oak* étant déjà déposé, le langage fut rebaptisé **Java** en 
 
 ### 🚀 Le lancement officiel (1995)
 
-Java est présenté au public le **23 mai 1995** lors de la conférence SunWorld. Il se distingue immédiatement par son slogan révolutionnaire :  
-**“Write once, run anywhere”** — *Écris une fois, exécute partout*.  
+Java est présenté au public le **23 mai 1995** lors de la conférence SunWorld. Il se distingue immédiatement par son slogan révolutionnaire :
+**“Write once, run anywhere”** — *Écris une fois, exécute partout*.
 Grâce à la **machine virtuelle Java (JVM)**, les programmes Java peuvent être exécutés sur n’importe quelle plateforme compatible, sans modification du code.
 
 ---
@@ -748,10 +961,10 @@ La Java Platform est un environnement logiciel complet qui permet de développer
 
 - **Bibliothèques et API :** La plateforme inclut un ensemble de bibliothèques standard qui offrent des fonctionnalités prêtes à l’emploi pour la manipulation de collections, la gestion des entrées/sorties, le développement réseau, l’internationalisation, et bien plus. Ces outils facilitent grandement le développement d’applications robustes.
 
-- **Éditions de la plateforme :**  
-  - **Java Standard Edition (Java SE) :** La version de base qui sert aussi bien pour développer des applications desktop que pour réaliser des outils divers.  
-  - **Java Enterprise Edition (Java EE), désormais Jakarta EE :** Conçue pour les applications d’entreprise, elle intègre des fonctionnalités supplémentaires comme les servlets, la gestion des transactions, et le support web.  
-  - **Java Micro Edition (Java ME) :** Adaptée aux appareils embarqués et aux environnements aux ressources limitées, comme certains smartphones ou systèmes embarqués.  
+- **Éditions de la plateforme :**
+  - **Java Standard Edition (Java SE) :** La version de base qui sert aussi bien pour développer des applications desktop que pour réaliser des outils divers.
+  - **Java Enterprise Edition (Java EE), désormais Jakarta EE :** Conçue pour les applications d’entreprise, elle intègre des fonctionnalités supplémentaires comme les servlets, la gestion des transactions, et le support web.
+  - **Java Micro Edition (Java ME) :** Adaptée aux appareils embarqués et aux environnements aux ressources limitées, comme certains smartphones ou systèmes embarqués.
   - **JavaFX :** Utilisée pour créer des interfaces utilisateur modernes et riches.
 
 En résumé, la Java Platform offre non seulement un langage (Java) mais également un écosystème complet qui favorise le développement de logiciels portables, performants et sécurisés. Ce concept de plateforme met l’accent sur l’interopérabilité et la polyvalence, permettant aux développeurs de créer des applications qui fonctionnent de manière identique sur plusieurs environnements, tout en bénéficiant d’un vaste ensemble de bibliothèques et d’outils pour accélérer et sécuriser le développement.
@@ -891,9 +1104,9 @@ throw new MonException("Erreur spécifique");
 
 ### 🔹 **7. Bonnes pratiques**
 
-✅ Ne pas attraper une exception sans la traiter (`catch(Exception e) {}` = 🚫)  
-✅ Utiliser des messages explicites  
-✅ Privilégier les exceptions spécifiques  
+✅ Ne pas attraper une exception sans la traiter (`catch(Exception e) {}` = 🚫)
+✅ Utiliser des messages explicites
+✅ Privilégier les exceptions spécifiques
 ✅ Nettoyer les ressources dans `finally` ou utiliser `try-with-resources` pour l’I/O
 
 ---
@@ -949,7 +1162,7 @@ public class ExempleGestionExceptions {
 
 ---
 
-## 🔹 Résumé des concepts utilisés
+### 🔹 Résumé des concepts utilisés
 
 | Élément                              | Utilisation                           |
 | ------------------------------------ | ------------------------------------- |
@@ -962,9 +1175,280 @@ public class ExempleGestionExceptions {
 
 ---
 
+## ✅ Library Jackson
+Voici une explication sur la **bibliothèque Jackson en Java**, avec **des exemples concrets** pour illustrer chaque usage :
+
+---
+
+## 📦 Jackson en Java : Description, fonctionnement et exemples
+
+### 🔍 Qu’est-ce que Jackson ?
+
+Jackson est une bibliothèque Java qui permet de **convertir facilement des objets Java en JSON** (sérialisation) et **du JSON en objets Java** (désérialisation). Elle est très utilisée dans les applications web, les API REST, et les traitements de données.
+
+---
+
+## ⚙️ Fonctionnement général
+
+### 🔁 Sérialisation (objet Java → JSON)
+
+```java
+ObjectMapper mapper = new ObjectMapper();
+
+Utilisateur user = new Utilisateur("Maud", "maud@example.com");
+String json = mapper.writeValueAsString(user);
+
+System.out.println(json);
+// {"nom":"Maud","email":"maud@example.com"}
+```
+
+### 🔄 Désérialisation (JSON → objet Java)
+
+```java
+String json = "{\"nom\":\"Maud\",\"email\":\"maud@example.com\"}";
+Utilisateur user = mapper.readValue(json, Utilisateur.class);
+
+System.out.println(user.getNom()); // Maud
+```
+
+---
+
+## 🧠 Exemple de classe Java
+
+```java
+public class Utilisateur {
+    private String nom;
+    private String email;
+
+    public Utilisateur() {} // constructeur vide obligatoire
+    public Utilisateur(String nom, String email) {
+        this.nom = nom;
+        this.email = email;
+    }
+
+    public String getNom() { return nom; }
+    public String getEmail() { return email; }
+}
+```
+
+---
+
+## 🏷️ Personnalisation avec annotations
+
+### 🔹 Renommer une propriété JSON
+
+```java
+public class Utilisateur {
+    @JsonProperty("nom_utilisateur")
+    private String nom;
+}
+```
+
+Résultat JSON :
+```json
+{"nom_utilisateur":"Maud"}
+```
+
+---
+
+### 🔹 Ignorer un champ
+
+```java
+public class Utilisateur {
+    @JsonIgnore
+    private String motDePasse;
+}
+```
+
+Le champ `motDePasse` ne sera pas inclus dans le JSON.
+
+---
+
+### 🔹 Inclure uniquement les champs non nuls
+
+```java
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Utilisateur {
+    private String nom;
+    private String email;
+}
+```
+
+---
+
+### 🔹 Formater une date
+
+```java
+public class Evenement {
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate date;
+}
+```
+
+Résultat JSON :
+```json
+{"date":"22/10/2025"}
+```
+
+---
+
+## 📚 Méthodes utiles de `ObjectMapper`
+
+| Méthode | Description | Exemple |
+|--------|-------------|---------|
+| `writeValueAsString(obj)` | Convertit un objet en JSON | `mapper.writeValueAsString(user)` |
+| `readValue(json, Class)` | Convertit du JSON en objet | `mapper.readValue(json, Utilisateur.class)` |
+| `writeValue(file, obj)` | Écrit dans un fichier | `mapper.writeValue(new File("user.json"), user)` |
+| `readTree(json)` | Lit un JSON en arbre | `JsonNode node = mapper.readTree(json)` |
+
+---
+
+## 🚀 Cas d’usage avancés
+
+### 🔹 Lire un tableau JSON
+
+```java
+String json = "[{\"nom\":\"Maud\"}, {\"nom\":\"Jean\"}]";
+List<Utilisateur> liste = mapper.readValue(json, new TypeReference<List<Utilisateur>>() {});
+```
+
+---
+
+### 🔹 Mapper une Map JSON
+
+```java
+String json = "{\"nom\":\"Maud\",\"email\":\"maud@example.com\"}";
+Map<String, String> map = mapper.readValue(json, new TypeReference<Map<String, String>>() {});
+```
+
+---
+
+### 🔹 Désérialiser partiellement avec JsonNode
+
+```java
+JsonNode node = mapper.readTree(json);
+String nom = node.get("nom").asText();
+```
+
+---
+
 ## ✅ Maven
 
 Maven est un outil de construction de projets (build) open source développé par la fondation Apache, initialement pour les besoins du projet Jakarta Turbine. Il permet de faciliter et d'automatiser certaines tâches de la gestion d'un projet Java.
+
+## ✅ Nombre
+
+Voici la fiche **Markdown enrichie** sur les types numériques en Java (`int`, `Integer`, `float`, `Float`, `double`, `Double`) avec une section dédiée aux **méthodes utiles** pour chaque type objet.
+
+---
+
+### 📘 Java – Types numériques : `int`, `Integer`, `float`, `double`
+
+---
+
+#### 🔢 1. `int` et `Integer`
+
+##### ✅ Description
+- `int` : type primitif pour les entiers (32 bits)
+- `Integer` : classe wrapper (objet) associée à `int`
+- Utilisé pour les calculs, les boucles, les index…
+
+##### 🔧 Déclaration
+
+```java
+int age = 30;
+Integer nombre = Integer.valueOf(age); // Autoboxing
+```
+
+##### 🔍 Méthodes utiles (`Integer`)
+
+| Méthode | Description | Exemple |
+|--------|-------------|---------|
+| `parseInt(String)` | Convertit une chaîne en `int` | `int x = Integer.parseInt("42");` |
+| `valueOf(String)` | Convertit une chaîne en `Integer` | `Integer i = Integer.valueOf("42");` |
+| `toString()` | Convertit en chaîne | `String s = i.toString();` |
+| `compare(int a, int b)` | Compare deux entiers | `Integer.compare(5, 10); // -1` |
+| `max(int a, int b)` | Renvoie le plus grand | `Integer.max(5, 10); // 10` |
+| `min(int a, int b)` | Renvoie le plus petit | `Integer.min(5, 10); // 5` |
+| `sum(int a, int b)` | Additionne deux entiers | `Integer.sum(5, 10); // 15` |
+
+---
+
+#### 🌊 2. `float` et `Float`
+
+##### ✅ Description
+- `float` : type primitif pour les nombres décimaux (32 bits)
+- `Float` : classe wrapper associée
+- Moins précis que `double`, suffixe `f` requis
+
+##### 🔧 Déclaration
+
+```java
+float temperature = 36.6f;
+Float f = Float.valueOf(temperature);
+```
+
+##### 🔍 Méthodes utiles (`Float`)
+
+| Méthode | Description | Exemple |
+|--------|-------------|---------|
+| `parseFloat(String)` | Convertit une chaîne en `float` | `float f = Float.parseFloat("3.14");` |
+| `valueOf(String)` | Convertit une chaîne en `Float` | `Float f = Float.valueOf("3.14");` |
+| `toString()` | Convertit en chaîne | `String s = f.toString();` |
+| `isNaN(float)` | Vérifie si la valeur est NaN | `Float.isNaN(f);` |
+| `isInfinite(float)` | Vérifie si la valeur est infinie | `Float.isInfinite(f);` |
+| `compare(float a, float b)` | Compare deux floats | `Float.compare(1.2f, 1.5f); // -1` |
+
+---
+
+#### 💧 3. `double` et `Double`
+
+##### ✅ Description
+- `double` : type primitif pour les décimaux haute précision (64 bits)
+- `Double` : classe wrapper associée
+- Recommandé pour les calculs scientifiques ou financiers
+
+##### 🔧 Déclaration
+
+```java
+double pi = 3.14159;
+Double d = Double.valueOf(pi);
+```
+
+##### 🔍 Méthodes utiles (`Double`)
+
+| Méthode | Description | Exemple |
+|--------|-------------|---------|
+| `parseDouble(String)` | Convertit une chaîne en `double` | `double d = Double.parseDouble("2.718");` |
+| `valueOf(String)` | Convertit une chaîne en `Double` | `Double d = Double.valueOf("2.718");` |
+| `toString()` | Convertit en chaîne | `String s = d.toString();` |
+| `isNaN(double)` | Vérifie si la valeur est NaN | `Double.isNaN(d);` |
+| `isInfinite(double)` | Vérifie si la valeur est infinie | `Double.isInfinite(d);` |
+| `compare(double a, double b)` | Compare deux doubles | `Double.compare(1.2, 1.5); // -1` |
+
+---
+
+#### 🧪 Comparer des valeurs flottantes
+
+```java
+float a = 0.1f + 0.2f;
+float b = 0.3f;
+
+if (Math.abs(a - b) < 0.0001f) {
+    System.out.println("Presque égaux");
+}
+```
+
+---
+
+#### 🧠 Bonnes pratiques
+
+- ✅ Utilise `double` pour les calculs précis
+- ✅ Utilise `Integer.parseInt()` pour convertir une chaîne en entier
+- ✅ Utilise `String.format("%.2f", valeur)` pour formater un nombre décimal
+- ⚠️ Évite `==` pour comparer des `float` ou `double` → utilise `Math.abs(a - b) < epsilon`
+
+---
 
 ## ✅ Optional
 
@@ -1024,22 +1508,22 @@ System.out.println(username);
 
 Parmi les méthodes les plus utilisées sur un `Optional`, on retrouve :
 
-- **isPresent() et isEmpty()**  
+- **isPresent() et isEmpty()**
   Permettent de savoir si une valeur est contenue dans l'`Optional`.
 
-- **ifPresent(Consumer<? super T> action)**  
+- **ifPresent(Consumer<? super T> action)**
   Exécute l'action donnée si la valeur est présente.
 
-- **orElse(T other)**  
+- **orElse(T other)**
   Retourne la valeur si présente, sinon retourne la valeur par défaut.
 
-- **orElseGet(Supplier<? extends T> supplier)**  
+- **orElseGet(Supplier<? extends T> supplier)**
   Semblable à `orElse`, mais la valeur par défaut est générée à la demande (ce qui peut éviter de coûteux calculs inutiles).
 
-- **orElseThrow()** ou **orElseThrow(Supplier<? extends X> exceptionSupplier)**  
+- **orElseThrow()** ou **orElseThrow(Supplier<? extends X> exceptionSupplier)**
   Permet de lever une exception si aucune valeur n'est présente.
 
-- **map(Function<? super T, ? extends U> mapper)** et **flatMap(Function<? super T, Optional<U>> mapper)**  
+- **map(Function<? super T, ? extends U> mapper)** et **flatMap(Function<? super T, Optional<U>> mapper)**
   Pour transformer la valeur contenue dans l'`Optional` de manière fluide, tout en gérant la possibilité d'une absence de valeur.
 
 Par exemple, pour transformer et filtrer une valeur :
@@ -1047,19 +1531,19 @@ Par exemple, pour transformer et filtrer une valeur :
 ```java
 Optional<String> opt = Optional.of("java");
 Optional<String> upperOpt = opt.map(String::toUpperCase);
-    
+
 upperOpt.ifPresent(System.out::println);  // Affichera "JAVA"
 ```
 
 ### Bonnes pratiques
 
-- **Utilisation en sortie (retour de méthode) :**  
+- **Utilisation en sortie (retour de méthode) :**
   Il est recommandé d'utiliser `Optional` comme type de retour des méthodes, afin de signaler clairement qu'une valeur peut être absente.
 
-- **Attention à l'usage en tant que champ ou paramètre :**  
+- **Attention à l'usage en tant que champ ou paramètre :**
   De nombreux experts (comme Brian Goetz) recommandent de n'utiliser `Optional` ni pour les paramètres de méthodes ni pour les attributs de classes, afin d'éviter une surcomplexification du code. [^3^]
 
-- **Chaînage d'opérations :**  
+- **Chaînage d'opérations :**
   Les méthodes comme `map`, `flatMap` et `filter` permettent d'écrire un code fluide et fonctionnel sans avoir à vérifier constamment si la valeur existe. [^4^]
 
 En résumé, `Optional` est une excellente façon de rendre vos méthodes plus sûres et vos intentions plus explicites quant à la possibilité d'absence de résultat. En l'utilisant, vous forcez le développeur appelant à traiter le cas où la donnée n'est pas présente et vous réduisez ainsi le risque d'erreurs liées aux valeurs nulles.
@@ -1284,6 +1768,392 @@ Lorsque ces deux mots-clés sont combinés (static final), cela signifie que la 
 - Optimise la gestion de la mémoire en évitant la duplication des valeurs.
 - Facilite la maintenance en centralisant les constantes. L'utilisation de static final en Java est recommandée dans plusieurs cas où une valeur doit rester constante et être partagée entre toutes les instances d'une classe
 
+## ✅ String
+
+**La classe `String` en Java permet de manipuler des chaînes de caractères. Elle est immuable, ce qui signifie qu'une fois créée, sa valeur ne peut pas être modifiée. Voici une explication complète avec des exemples concrets pour bien comprendre son fonctionnement et ses méthodes.**
+
+---
+
+### 🧩 Présentation de la classe `String`
+
+- **Type** : classe finale dans le package `java.lang`
+- **Immuable** : toute modification crée une nouvelle instance
+- **Utilisation fréquente** : affichage, comparaison, extraction, transformation de texte
+
+```java
+String message = "Bonjour Maud";
+```
+
+---
+
+### 🔧 Méthodes essentielles de `String` avec exemples
+
+#### 1. `length()` – Obtenir la longueur
+
+```java
+String mot = "Java";
+int taille = mot.length(); // 4
+```
+
+---
+
+#### 2. `charAt(int index)` – Accéder à un caractère
+
+```java
+char lettre = mot.charAt(1); // 'a'
+```
+
+---
+
+#### 3. `substring(int start, int end)` – Extraire une portion
+
+```java
+String extrait = mot.substring(0, 2); // "Ja"
+```
+
+---
+
+#### 4. `toUpperCase()` / `toLowerCase()` – Majuscules / minuscules
+
+```java
+String maj = mot.toUpperCase(); // "JAVA"
+String min = mot.toLowerCase(); // "java"
+```
+
+---
+
+#### 5. `contains(String)` – Vérifier la présence d’un mot
+
+```java
+boolean contient = mot.contains("va"); // true
+```
+
+---
+
+#### 6. `equals()` / `equalsIgnoreCase()` – Comparaison
+
+```java
+String a = "Java";
+String b = "java";
+
+boolean exact = a.equals(b); // false
+boolean sansCasse = a.equalsIgnoreCase(b); // true
+```
+
+---
+
+#### 7. `replace(String old, String new)` – Remplacer du texte
+
+```java
+String phrase = "Je code en Python";
+String nouvelle = phrase.replace("Python", "Java"); // "Je code en Java"
+```
+
+---
+
+#### 8. `trim()` – Supprimer les espaces en début et fin
+
+```java
+String brut = "  Hello  ";
+String propre = brut.trim(); // "Hello"
+```
+
+---
+
+#### 9. `split(String regex)` – Diviser une chaîne
+
+```java
+String liste = "un,deux,trois";
+String[] mots = liste.split(","); // ["un", "deux", "trois"]
+```
+
+---
+
+#### 10. `startsWith()` / `endsWith()` – Début / fin
+
+```java
+boolean commence = mot.startsWith("Ja"); // true
+boolean finit = mot.endsWith("va"); // true
+```
+
+---
+
+#### 11. `indexOf()` / `lastIndexOf()` – Position d’un mot
+
+```java
+int position = mot.indexOf("a"); // 1
+int derniere = mot.lastIndexOf("a"); // 3
+```
+
+---
+
+#### 12. `isEmpty()` / `isBlank()` – Vérifier si vide
+
+```java
+String vide = "";
+String espace = "   ";
+
+vide.isEmpty(); // true
+espace.isBlank(); // true (Java 11+)
+```
+
+---
+
+#### 13. `concat(String)` – Ajouter une chaîne
+
+```java
+String nom = "Maud";
+String complet = nom.concat(" Java"); // "Maud Java"
+```
+
+---
+
+#### 14. `matches(String regex)` – Vérifier un motif
+
+```java
+String email = "maud@example.com";
+boolean valide = email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$"); // true
+```
+
+---
+
+#### 15. `repeat(int)` – Répéter une chaîne (Java 11+)
+
+```java
+String etoile = "*".repeat(5); // "*****"
+```
+---
+
+## ✅ StringBuilder
+Voici une fiche complète en **Markdown** sur la classe `StringBuilder` en Java, avec explications et exemples concrets :
+
+---
+
+# 📘 Java – Classe `StringBuilder`
+
+La classe `StringBuilder` permet de manipuler des chaînes de caractères **modifiables**. Contrairement à `String`, elle est **mutable**, ce qui la rend plus efficace pour les opérations répétées comme la concaténation.
+
+---
+
+### 🔧 Déclaration et utilisation
+
+```java
+StringBuilder sb = new StringBuilder("Bonjour");
+```
+
+---
+
+### ⚙️ Méthodes principales
+
+#### 1. `append(String)` – Ajouter du texte
+
+```java
+sb.append(" Maud");
+// Résultat : "Bonjour Maud"
+```
+
+---
+
+#### 2. `insert(int offset, String)` – Insérer du texte
+
+```java
+sb.insert(8, "chère ");
+// Résultat : "Bonjour chère Maud"
+```
+
+---
+
+#### 3. `delete(int start, int end)` – Supprimer une portion
+
+```java
+sb.delete(0, 8);
+// Résultat : "chère Maud"
+```
+
+---
+
+#### 4. `replace(int start, int end, String)` – Remplacer une portion
+
+```java
+sb.replace(0, 6, "brave");
+// Résultat : "brave Maud"
+```
+
+---
+
+#### 5. `reverse()` – Inverser la chaîne
+
+```java
+sb.reverse();
+// Résultat : "duaM evarb"
+```
+
+---
+
+#### 6. `toString()` – Convertir en `String`
+
+```java
+String texte = sb.toString();
+```
+
+---
+
+#### 7. `setLength(int)` – Redéfinir la longueur
+
+```java
+StringBuilder sb = new StringBuilder("Hello World");
+sb.setLength(5);
+// Résultat : "Hello"
+```
+
+---
+
+#### 8. `charAt(int)` et `setCharAt(int, char)` – Lire ou modifier un caractère
+
+```java
+char c = sb.charAt(1); // 'e'
+sb.setCharAt(1, 'a');
+// Résultat : "Hallo"
+```
+
+---
+
+#### 9. `capacity()` et `ensureCapacity(int)` – Gérer la mémoire
+
+```java
+System.out.println(sb.capacity()); // capacité initiale
+sb.ensureCapacity(100); // réserve de l’espace
+```
+
+---
+
+#### 🧠 Pourquoi utiliser `StringBuilder` ?
+
+| Situation | Recommandation |
+|-----------|----------------|
+| Texte modifié souvent | ✅ `StringBuilder` |
+| Texte constant | `String` |
+| Accès multi-thread | `StringBuffer` |
+
+---
+
+Tu veux que je t’aide à transformer cette fiche en quiz, en carte interactive ou à l’intégrer dans un projet Java ? Je peux aussi t’ajouter une fiche sur `StringBuffer` ou sur les performances comparées.
+
+## ✅ StringBuffer
+Voici une fiche complète en **Markdown** sur la classe `StringBuffer` en Java, avec explications et exemples concrets :
+
+---
+
+### 📘 Java – Classe `StringBuffer`
+
+La classe `StringBuffer` permet de manipuler des chaînes de caractères **modifiables** comme `StringBuilder`, mais elle est **synchronisée**, ce qui la rend **thread-safe** (sécurisée en environnement multithread).
+
+---
+
+#### 🔧 Déclaration et utilisation
+
+```java
+StringBuffer sb = new StringBuffer("Bonjour");
+```
+
+---
+
+#### ⚙️ Méthodes principales
+
+##### 1. `append(String)` – Ajouter du texte
+
+```java
+sb.append(" Maud");
+// Résultat : "Bonjour Maud"
+```
+
+---
+
+##### 2. `insert(int offset, String)` – Insérer du texte
+
+```java
+sb.insert(8, "chère ");
+// Résultat : "Bonjour chère Maud"
+```
+
+---
+
+##### 3. `delete(int start, int end)` – Supprimer une portion
+
+```java
+sb.delete(0, 8);
+// Résultat : "chère Maud"
+```
+
+---
+
+##### 4. `replace(int start, int end, String)` – Remplacer une portion
+
+```java
+sb.replace(0, 6, "brave");
+// Résultat : "brave Maud"
+```
+
+---
+
+##### 5. `reverse()` – Inverser la chaîne
+
+```java
+sb.reverse();
+// Résultat : "duaM evarb"
+```
+
+---
+
+##### 6. `toString()` – Convertir en `String`
+
+```java
+String texte = sb.toString();
+```
+
+---
+
+##### 7. `setLength(int)` – Redéfinir la longueur
+
+```java
+StringBuffer sb = new StringBuffer("Hello World");
+sb.setLength(5);
+// Résultat : "Hello"
+```
+
+---
+
+##### 8. `charAt(int)` et `setCharAt(int, char)` – Lire ou modifier un caractère
+
+```java
+char c = sb.charAt(1); // 'e'
+sb.setCharAt(1, 'a');
+// Résultat : "Hallo"
+```
+
+---
+
+##### 9. `capacity()` et `ensureCapacity(int)` – Gérer la mémoire
+
+```java
+System.out.println(sb.capacity()); // capacité initiale
+sb.ensureCapacity(100); // réserve de l’espace
+```
+
+---
+
+#### 🧠 Différences entre `String`, `StringBuilder` et `StringBuffer`
+
+| Classe         | Mutable | Thread-safe | Performances |
+|----------------|---------|-------------|--------------|
+| `String`       | ❌       | ✅           | ⚠️ lente si modifiée souvent |
+| `StringBuilder`| ✅       | ❌           | ✅ rapide |
+| `StringBuffer` | ✅       | ✅           | ⚠️ plus lent que StringBuilder |
+
+---
+
+Tu veux que je t’aide à créer une fiche comparative entre les trois, ou à transformer cette fiche en quiz JSON ou en carte de révision ? Je peux aussi t’expliquer comment choisir entre `StringBuilder` et `StringBuffer` selon ton projet.
+
 ## ✅ Test
 
 En Java, le **test** est une étape essentielle du développement logiciel pour garantir que le code fonctionne comme prévu. Il existe plusieurs types de tests, chacun avec ses outils et objectifs :
@@ -1448,7 +2318,7 @@ class CalculatriceServiceTest {
 
 ---
 
-Tu veux aller plus loin avec des tests d’exception, des mocks plus complexes ou l’intégration avec Spring Boot ? Je peux aussi te montrer comment tester des appels REST ou des bases de données simulées. 😄  
+Tu veux aller plus loin avec des tests d’exception, des mocks plus complexes ou l’intégration avec Spring Boot ? Je peux aussi te montrer comment tester des appels REST ou des bases de données simulées. 😄
 Sinon, tu peux explorer [cet exemple complet sur Java Guides](https://www.javaguides.net/2023/10/mockito-junit-5-example.html) ou [ce tutoriel pas à pas sur Java Code Geeks](https://examples.javacodegeeks.com/java-development/core-java/mockito/junit-mockito-example/).
 
 ## ✅ Thread
@@ -1517,8 +2387,8 @@ Java offre deux principales méthodes pour créer un thread :
 
 ### 🔹 **Cas d'utilisation**
 
-✅ **Traitement parallèle** pour améliorer la réactivité  
-✅ **Gestion des tâches en arrière-plan** (ex. téléchargement, calculs)  
+✅ **Traitement parallèle** pour améliorer la réactivité
+✅ **Gestion des tâches en arrière-plan** (ex. téléchargement, calculs)
 ✅ **Optimisation des performances** en exploitant plusieurs cœurs
 
 ## ✅ 📦 Packages Standards en Java
